@@ -42,4 +42,16 @@ elif "Es ist ein Fehler aufgetreten" in check_request.text:
   with open("./error.txt", "w") as f:
     f.write(check_request.text)
 else:
-  send_telegram_chat("Termin verfügbar")
+    # Check for available appointments within the next two weeks
+    appointments = check_request.json()
+    available = False
+    for appointment in appointments.get('data', []):
+        appointment_date = datetime.strptime(appointment['date'], '%Y-%m-%d')
+        if today <= appointment_date <= two_weeks_from_now:
+            available = True
+            break
+
+    if available:
+        send_telegram_chat("Termin verfügbar in den nächsten 2 Wochen")
+    else:
+        send_telegram_chat("Kein Termin verfügbar in den nächsten 2 Wochen")
