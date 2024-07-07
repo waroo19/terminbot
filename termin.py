@@ -1,7 +1,7 @@
 import requests
 import os
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -11,7 +11,7 @@ today_date = datetime.now().strftime("%d.%m.%Y")
 
 options = Options()
 options.headless = True
-driver = webdriver.Chrome(options=options)
+driver = webdriver.Firefox(options=options)
 
 # Get secrets from environment variables
 telegram_bot_secret = os.getenv("TELEGRAM_BOT_SECRET")
