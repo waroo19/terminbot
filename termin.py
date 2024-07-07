@@ -1,6 +1,10 @@
 import requests
 import os
-from datetime import datetime, timedelta
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from datetime import datetime
 
 today_date = datetime.now().strftime("%d.%m.%Y")
 
