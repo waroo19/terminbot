@@ -69,7 +69,11 @@ if os.path.exists('./error.txt'):
 
 check_request = requests.get(appointment_check_url, cookies=cookie_dict)
 if "Keine Zeiten verfügbar" in check_request.text:
-    send_telegram_chat("Kein Termin verfügbar")
+    log_message = "Kein Termin verfügbar"
+    print(log_message)
+    # Write the log message to a file
+    with open("log.txt", "a") as log_file:  # 'a' mode for appending to the log file
+        log_file.write(f"{datetime.now()}: {log_message}\n")
 elif "Es ist ein Fehler aufgetreten" in check_request.text:
     send_telegram_chat("Bot machine broke")
     with open("./error.txt", "w", encoding='utf-8') as f:
