@@ -39,4 +39,4 @@ jobs:
           pip install requests selenium
       - name: Run script
         run: |
-          python termin.py
+          python termin.py | tee log.txt
