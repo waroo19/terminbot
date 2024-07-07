@@ -2,6 +2,8 @@ import requests
 import os
 from datetime import datetime, timedelta
 
+today_date = datetime.now().strftime("%d.%m.%Y")
+
 # Get secrets from environment variables
 telegram_bot_secret = os.getenv("TELEGRAM_BOT_SECRET")
 telegram_chat_id = os.getenv("TELEGRAM_CHAT_ID")
