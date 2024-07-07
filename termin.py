@@ -1,12 +1,17 @@
 import requests
 import os
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 
 today_date = datetime.now().strftime("%d.%m.%Y")
+
+options = Options()
+options.headless = True
+driver = webdriver.Chrome(options=options)
 
 # Get secrets from environment variables
 telegram_bot_secret = os.getenv("TELEGRAM_BOT_SECRET")
@@ -24,7 +29,6 @@ def send_telegram_chat(msg):
         print("Something went wrong with sending telegram messages, are the keys correct?")
         print(response.text)
 
-driver = webdriver.Chrome()
 driver.get(session_cookie_source_url)
 
 
