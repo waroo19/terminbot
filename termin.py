@@ -1,7 +1,7 @@
 import requests
 import os
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -11,7 +11,7 @@ today_date = datetime.now().strftime("%d.%m.%Y")
 
 options = Options()
 options.headless = True
-driver = webdriver.Firefox(options=options)
+driver = webdriver.Chrome(options=options)
 
 # Get secrets from environment variables
 telegram_bot_secret = os.getenv("TELEGRAM_BOT_SECRET")
@@ -31,7 +31,7 @@ def send_telegram_chat(msg):
 
 driver.get(session_cookie_source_url)
 
-
+# Handle cookie message
 try:
     wait = WebDriverWait(driver, 5)
     cookie_dismiss_button = wait.until(EC.element_to_be_clickable((By.ID, 'dismiss_button_id')))
@@ -39,12 +39,15 @@ try:
 except Exception as e:
     print(f"No cookie dialog found or already handled: {e}")
 
+# Scroll to and click the '+' button
 try:
     plus_button = wait.until(EC.element_to_be_clickable((By.ID, 'button-plus-1039')))
+    driver.execute_script("arguments[0].scrollIntoView(true);", plus_button)
     plus_button.click()
 except Exception as e:
     print(f"Failed to click the '+' button: {e}")
 
+# Click the 'Weiter' button
 try:
     weiter_button = wait.until(EC.element_to_be_clickable((By.ID, 'WeiterButton')))
     weiter_button.click()
@@ -56,10 +59,10 @@ try:
     ok_button = driver.find_element(By.ID, 'OKButton')
     ok_button.click()
     print("'OK' button clicked")
-    print(appointment_check_url)
 except Exception as e:
     print(f"Modal handling error: {e}")
 
+# Click the final button
 try:
     button = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.NAME, "select_location"))
@@ -69,20 +72,24 @@ try:
 except Exception as e:
     print("Failed to click the button using JavaScript:", e)
 
+# Extract session cookies from Selenium and convert to requests format
 selenium_cookies = driver.get_cookies()
 cookie_dict = {cookie['name']: cookie['value'] for cookie in selenium_cookies}
 driver.quit()
 
+# Check for error state
 if os.path.exists('./error.txt'):
     print("Error state :(")
     quit()
 
+# Send appointment check request with session cookies
 check_request = requests.get(appointment_check_url, cookies=cookie_dict)
+
+# Process response
 if "Keine Zeiten verfügbar" in check_request.text:
     log_message = "Kein Termin verfügbar"
     print(log_message)
-    # Write the log message to a file
-    with open("log.txt", "a") as log_file:  # 'a' mode for appending to the log file
+    with open("log.txt", "a") as log_file:
         log_file.write(f"{datetime.now()}: {log_message}\n")
 elif "Es ist ein Fehler aufgetreten" in check_request.text:
     send_telegram_chat("Bot machine broke")
