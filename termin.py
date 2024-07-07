@@ -23,7 +23,7 @@ telegram_chat_id = os.getenv("TELEGRAM_CHAT_ID")
 
 # URLs
 session_cookie_source_url = "https://tevis.ekom21.de/fra/select2?md=35"
-appointment_check_url = f"https://tevis.ekom21.de/fra/suggest?loc=30&mdt=0&cnc-1039=1&filter_date_from={today_date}&filter_date_to=30.12.2024"
+appointment_check_url = f"https://tevis.ekom21.de/fra/suggest?loc=30&mdt=0&cnc-1039=1&filter_date_from={today_date}&filter_date_to=30.09.2024"
 print(appointment_check_url)
 telegram_send_chat_url = f"https://api.telegram.org/bot{telegram_bot_secret}/sendMessage?chat_id={telegram_chat_id}&text="
 
