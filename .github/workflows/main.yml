@@ -1,8 +1,8 @@
-name: Check Appointments with Chrome Headless
+name: Check Appointments
 
 on:
   schedule:
-    - cron: '*/10 * * * *'  # Runs every 3 Minutes
+    - cron: '*/3 * * * *'  # Runs every 3 Minutes
   workflow_dispatch:    # Allows manual trigger of the workflow
 
 jobs:
@@ -29,7 +29,7 @@ jobs:
           sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
       - name: Install ChromeDriver
         run: |
-          wget -q https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.126/linux64/chromedriver-linux64.zip
+          wget -q -O chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
