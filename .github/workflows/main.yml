@@ -45,7 +45,7 @@ jobs:
 
       - name: Run script
         run: |
-          python termin.py 2>&1 | tee log.txt
+          python main.py 2>&1 | tee log.txt
 
       - name: Upload log
         uses: actions/upload-artifact@v2
