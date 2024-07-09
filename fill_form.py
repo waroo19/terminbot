@@ -4,6 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from data import personal_info
 
+
 def fill_out_form(driver, wait):
     try:
 
