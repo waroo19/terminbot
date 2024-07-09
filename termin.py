@@ -8,7 +8,7 @@ import os
 def check_appointments(driver):
     today_date = datetime.now().strftime("%d.%m.%Y")
     source_url = "https://tevis.ekom21.de/fra/select2?md=35"
-    appointment_check_url = f"https://tevis.ekom21.de/fra/suggest?loc=30&mdt=0&cnc-1039=1&filter_date_from={today_date}&filter_date_to=30.10.2024"
+    appointment_check_url = f"https://tevis.ekom21.de/fra/suggest?loc=30&mdt=0&cnc-1039=1&filter_date_from={today_date}&filter_date_to=18.09.2024"
     print(appointment_check_url)
     
     driver.get(source_url)
