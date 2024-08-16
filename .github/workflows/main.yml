@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TELEGRAM_BOT_SECRET: ${{7430095521:AAFUZn8YE6fVY0Qs_Ft3yaQjAxjaU21rdq4}}
-      TELEGRAM_CHAT_ID: ${{6717536503}}
+      TELEGRAM_BOT_SECRET: ${{secrets.7430095521:AAFUZn8YE6fVY0Qs_Ft3yaQjAxjaU21rdq4}}
+      TELEGRAM_CHAT_ID: ${{secrets.6717536503}}
 
     steps:
       - uses: actions/checkout@v2
